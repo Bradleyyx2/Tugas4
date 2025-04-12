@@ -1,147 +1,165 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Pilihan</title>
-    <script>
-        function prosesData() {
-            let nama = document.getElementById("nama").value;
-            let jumlah = document.getElementById("jumlah").value;
-            let pilihanContainer = document.getElementById("pilihanContainer");
-            let hasilContainer = document.getElementById("hasilContainer");
-
-            pilihanContainer.innerHTML = "";
-            hasilContainer.innerHTML = "";
-
-            if (nama === "" || jumlah === "") {
-                alert("Harap isi semua bidang!");
-                return;
-            }
-
-            if (isNaN(jumlah) || jumlah <= 0) {
-                alert("Jumlah Pilihan harus berupa angka positif!");
-                return;
-            }
-
-            for (let i = 1; i <= jumlah; i++) {
-                let label = document.createElement("label");
-                label.innerText = "Pilihan " + i + " : ";
-
-                let input = document.createElement("input");
-                input.type = "text";
-                input.id = "pilihan" + i;
-                input.placeholder = "Teks Pilihan " + i;
-
-                let br = document.createElement("br");
-
-                pilihanContainer.appendChild(label);
-                pilihanContainer.appendChild(input);
-                pilihanContainer.appendChild(br);
-            }
-
-            let submitButton = document.createElement("button");
-            submitButton.innerText = "OK";
-            submitButton.style.marginTop = "10px";
-            submitButton.onclick = tampilkanPilihan;
-            pilihanContainer.appendChild(submitButton);
-        }
-
-        function tampilkanPilihan() {
-            let jumlah = document.getElementById("jumlah").value;
-            let hasilContainer = document.getElementById("hasilContainer");
-
-            hasilContainer.innerHTML = "<h3>Pilihan :</h3>";
-
-            let radioDiv = document.createElement("div");
-            let dropdown = document.createElement("select");
-
-            for (let i = 1; i <= jumlah; i++) {
-                let inputPilihan = document.getElementById("pilihan" + i).value;
-
-                if (inputPilihan === "") {
-                    alert("Harap isi semua teks pilihan!");
-                    return;
-                }
-
-                let radioLabel = document.createElement("label");
-                let radioInput = document.createElement("input");
-                radioInput.type = "radio";
-                radioInput.name = "pilihan";
-                radioInput.value = inputPilihan;
-
-                radioLabel.appendChild(radioInput);
-                radioLabel.appendChild(document.createTextNode(" " + inputPilihan));
-                radioDiv.appendChild(radioLabel);
-                radioDiv.appendChild(document.createElement("br"));
-
-                let option = document.createElement("option");
-                option.value = inputPilihan;
-                option.text = inputPilihan;
-                dropdown.appendChild(option);
-            }
-
-            hasilContainer.appendChild(radioDiv);
-            hasilContainer.appendChild(document.createElement("br"));
-            hasilContainer.appendChild(document.createTextNode("Atau dalam bentuk Drop Down:"));
-            hasilContainer.appendChild(document.createElement("br"));
-            hasilContainer.appendChild(dropdown);
-        }
-    </script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        .container {
-            display: inline-block;
-            border: 1px solid black;
-            padding: 20px;
-            margin-top: 20px;
-            text-align: left;
-        }
-        input {
-            margin-left: 10px;
-        }
-        button {
-            margin-top: 10px;
-        }
-        .pilihan-container {
-            border: 1px solid black;
-            padding: 10px;
-            margin-top: 10px;
-            display: inline-block;
-        }
-        .hasil-container {
-            border: 1px solid black;
-            padding: 10px;
-            margin-top: 10px;
-            display: inline-block;
-        }
-        select {
-            margin-top: 10px;
-            padding: 5px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tugas Form Pilihan</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #222;
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+    }
+    .container {
+      background-color: #333;
+      border: 1px solid #555;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    input, select {
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+    .form-control, .form-select {
+      background-color: #444;
+      color: #fff;
+    }
+    .hasil-container {
+      margin-top: 20px;
+      border: 1px solid #666;
+      padding: 10px;
+      background-color: #2d2d2d;
+    }
+  </style>
 </head>
 <body>
 
-    <p>
-        Masukan  <b>data </b> Dibawah ini dengan benar!
-    </p>
+<h2>Tugas 4 </h2>
+<p>Masukkan data di bawah ini dengan benar:</p>
 
-    <div class="container">
-        <label>Nama :</label>
-        <input type="text" id="nama" placeholder="Masukkan Nama"><br><br>
+<div class="container">
+  <label>Nama:</label>
+  <input type="text" id="nama" class="form-control" placeholder="Masukkan Nama">
 
-        <label>Jumlah Pilihan :</label>
-        <input type="number" id="jumlah" placeholder="Masukkan Angka"><br><br>
+  <label>Jumlah Pilihan:</label>
+  <input type="number" id="jumlah" class="form-control" placeholder="Masukkan Angka">
 
-        <button onclick="prosesData()">OK</button>
+  <button onclick="prosesData()" class="btn btn-primary mt-2">OK</button>
 
-        <div id="pilihanContainer" class="pilihan-container"></div>
-        <div id="hasilContainer" class="hasil-container"></div>
-    </div>
+  <div id="pilihanContainer" class="mt-3"></div>
+  <div id="hasilContainer" class="mt-3"></div>
+</div>
 
+<script>
+  function prosesData() {
+    let nama = document.getElementById("nama").value;
+    let jumlah = parseInt(document.getElementById("jumlah").value);
+    let pilihanContainer = document.getElementById("pilihanContainer");
+    let hasilContainer = document.getElementById("hasilContainer");
+
+    pilihanContainer.innerHTML = "";
+    hasilContainer.innerHTML = "";
+
+    if (nama === "" || isNaN(jumlah) || jumlah <= 0) {
+      alert("Harap isi nama dan jumlah pilihan dengan benar.");
+      return;
+    }
+
+    for (let i = 1; i <= jumlah; i++) {
+      let label = document.createElement("label");
+      label.innerText = "Pilihan " + i + ":";
+      let input = document.createElement("input");
+      input.type = "text";
+      input.id = "pilihan" + i;
+      input.className = "form-control";
+      input.placeholder = "Teks Pilihan " + i;
+
+      pilihanContainer.appendChild(label);
+      pilihanContainer.appendChild(input);
+    }
+
+    let tombolOK = document.createElement("button");
+    tombolOK.innerText = "Tampilkan Pilihan";
+    tombolOK.className = "btn btn-success mt-2";
+    tombolOK.onclick = tampilkanPilihan;
+    pilihanContainer.appendChild(tombolOK);
+  }
+
+  function tampilkanPilihan() {
+    let jumlah = parseInt(document.getElementById("jumlah").value);
+    let hasilContainer = document.getElementById("hasilContainer");
+    hasilContainer.innerHTML = "<h5>Pilihan:</h5>";
+
+    let radioDiv = document.createElement("div");
+    const pilihanList = [];
+
+    for (let i = 1; i <= jumlah; i++) {
+      let isi = document.getElementById("pilihan" + i).value;
+      if (isi === "") {
+        alert("Semua pilihan harus diisi.");
+        return;
+      }
+      pilihanList.push(isi);
+
+      let radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = "pilihan";
+      radio.value = isi;
+      radio.className = "form-check-input me-2";
+
+      let label = document.createElement("label");
+      label.className = "form-check-label me-3";
+      label.appendChild(radio);
+      label.appendChild(document.createTextNode(isi));
+
+      radioDiv.appendChild(label);
+      radioDiv.appendChild(document.createElement("br"));
+    }
+
+    hasilContainer.appendChild(radioDiv);
+
+    let submitBtn = document.createElement("button");
+    submitBtn.innerText = "Submit";
+    submitBtn.className = "btn btn-warning mt-3";
+    submitBtn.onclick = function () {
+      tampilkanHasilAkhir(pilihanList);
+    };
+
+    hasilContainer.appendChild(submitBtn);
+
+    let divHasil = document.createElement("div");
+    divHasil.id = "outputAkhir";
+    divHasil.className = "hasil-container mt-3";
+    hasilContainer.appendChild(divHasil);
+  }
+
+  function tampilkanHasilAkhir(pilihanList) {
+    let nama = document.getElementById("nama").value;
+    let jumlah = pilihanList.length;
+    let pilihanDipilih = "";
+
+    let radioPilihan = document.getElementsByName("pilihan");
+    for (let i = 0; i < radioPilihan.length; i++) {
+      if (radioPilihan[i].checked) {
+        pilihanDipilih = radioPilihan[i].value;
+        break;
+      }
+    }
+
+    if (pilihanDipilih === "") {
+      alert("Silakan pilih salah satu pilihan.");
+      return;
+    }
+
+    let output = document.getElementById("outputAkhir");
+    output.innerHTML = `Hallo, nama saya <strong>${nama}</strong>, saya mempunyai sejumlah <strong>${jumlah}</strong> pilihan yaitu <em>${pilihanList.join(", ")}</em>, dan saya memilih <strong>${pilihanDipilih}</strong>.`;
+  }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

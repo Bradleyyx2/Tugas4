@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pilihan</title>
+    <script>
+        function prosesData() {
+            let nama = document.getElementById("nama").value;
+            let jumlah = document.getElementById("jumlah").value;
+            let pilihanContainer = document.getElementById("pilihanContainer");
+            let hasilContainer = document.getElementById("hasilContainer");
+
+            pilihanContainer.innerHTML = "";
+            hasilContainer.innerHTML = "";
+
+            if (nama === "" || jumlah === "") {
+                alert("Harap isi semua bidang!");
+                return;
+            }
+
+            if (isNaN(jumlah) || jumlah <= 0) {
+                alert("Jumlah Pilihan harus berupa angka positif!");
+                return;
+            }
+
+            for (let i = 1; i <= jumlah; i++) {
+                let label = document.createElement("label");
+                label.innerText = "Pilihan " + i + " : ";
+
+                let input = document.createElement("input");
+                input.type = "text";
+                input.id = "pilihan" + i;
+                input.placeholder = "Teks Pilihan " + i;
+
+                let br = document.createElement("br");
+
+                pilihanContainer.appendChild(label);
+                pilihanContainer.appendChild(input);
+                pilihanContainer.appendChild(br);
+            }
+
+            let submitButton = document.createElement("button");
+            submitButton.innerText = "OK";
+            submitButton.style.marginTop = "10px";
+            submitButton.onclick = tampilkanPilihan;
+            pilihanContainer.appendChild(submitButton);
+        }
+
+        function tampilkanPilihan() {
+            let jumlah = document.getElementById("jumlah").value;
+            let hasilContainer = document.getElementById("hasilContainer");
+
+            hasilContainer.innerHTML = "<h3>Pilihan :</h3>";
+
+            let radioDiv = document.createElement("div");
+            let dropdown = document.createElement("select");
+
+            for (let i = 1; i <= jumlah; i++) {
+                let inputPilihan = document.getElementById("pilihan" + i).value;
+
+                if (inputPilihan === "") {
+                    alert("Harap isi semua teks pilihan!");
+                    return;
+                }
+
+                let radioLabel = document.createElement("label");
+                let radioInput = document.createElement("input");
+                radioInput.type = "radio";
+                radioInput.name = "pilihan";
+                radioInput.value = inputPilihan;
+
+                radioLabel.appendChild(radioInput);
+                radioLabel.appendChild(document.createTextNode(" " + inputPilihan));
+                radioDiv.appendChild(radioLabel);
+                radioDiv.appendChild(document.createElement("br"));
+
+                let option = document.createElement("option");
+                option.value = inputPilihan;
+                option.text = inputPilihan;
+                dropdown.appendChild(option);
+            }
+
+            hasilContainer.appendChild(radioDiv);
+            hasilContainer.appendChild(document.createElement("br"));
+            hasilContainer.appendChild(document.createTextNode("Atau dalam bentuk Drop Down:"));
+            hasilContainer.appendChild(document.createElement("br"));
+            hasilContainer.appendChild(dropdown);
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            display: inline-block;
+            border: 1px solid black;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        input {
+            margin-left: 10px;
+        }
+        button {
+            margin-top: 10px;
+        }
+        .pilihan-container {
+            border: 1px solid black;
+            padding: 10px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .hasil-container {
+            border: 1px solid black;
+            padding: 10px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        select {
+            margin-top: 10px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <p>
+        Masukan  <b>data </b> Dibawah ini dengan benar!
+    </p>
+
+    <div class="container">
+        <label>Nama :</label>
+        <input type="text" id="nama" placeholder="Masukkan Nama"><br><br>
+
+        <label>Jumlah Pilihan :</label>
+        <input type="number" id="jumlah" placeholder="Masukkan Angka"><br><br>
+
+        <button onclick="prosesData()">OK</button>
+
+        <div id="pilihanContainer" class="pilihan-container"></div>
+        <div id="hasilContainer" class="hasil-container"></div>
+    </div>
+
+</body>
+</html>
